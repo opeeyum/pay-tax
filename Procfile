@@ -1,1 +1,1 @@
-web: gunicron taxrepayment.wsgi --log-file -
+web: gunicron taxrepayment.wsgi:application --log-file -
