@@ -30,12 +30,14 @@ def add_entry(request):
         form = SaleTaxFormPayer(request.POST)
         if form.is_valid():
             buyer = request.POST["buyer"]
+            sale_item = request.POST["sale_item"]
             amount = request.POST["amount"]
             gst_percent = request.POST["gst_percent"]
 
             obj = Entry.objects.create(
                 seller = request.user,
                 buyer = buyer,
+                sale_item = sale_item,
                 amount = amount,
                 is_paid = False,
                 gst_percent = gst_percent,
