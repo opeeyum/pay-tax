@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+{% block content %}
+{% if request.user.is_authenticated %}
+<style>
+    .entry-container{
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+    }
+</style>
+<div class="border border-dark border-5 rounded-1 m-3 p-3">
+  <p>Welcome, <a href="{% url 'edit_user' request.user.id%}">{{request.user.username | title}}</a></p>
+</div>
+<div class="d-flex justify-content-sm-between">
+    
+    {% if request.user.user_type  == "TA" or request.user.is_superuser %}
+    <a href="{% url 'add_other_tax' %}" class="btn btn-info btn-lg mb-3"> + Other tax</a>
+    {% else%}
+    <a href="{% url 'add_entry' %}" class="btn btn-info btn-lg mb-3"> + Sales Entry</a>
+    {% endif %}
+</div>
+
+
+<div class="entry-container">
+    <div>
+        {% include 'gstrepayment/filter.html' %}
+    </div>
+    <div>
+        {% include 'gstrepayment/show_entry.html' %}
+    </div>
+</div>
+
+{% else %}
+<div class="text-center">
+    <div class="border border-dark border-5 rounded-1 m-3 p-3">
+        <p><q>Taxation is the price which civilized communities pay for the opportunity of remaining civilized.</q></p>
+        <p class="text-end"> <small>- Albert Bushnell Hart</small></p>
+    </div>
+    <div class="m-3 p-3">
+        <h3>Clear your taxes here.</h3>
+    </div>
+    <div class="btn-nav">                        
+        <a class="btn btn-primary btn-small navbar-btn" href="{% url 'login' %}" class="">Login</a>
+    </div>                           
+</div>
+{% endif %}
+
+{% endblock content %}

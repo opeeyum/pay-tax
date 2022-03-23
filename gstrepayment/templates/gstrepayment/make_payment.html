@@ -1,0 +1,17 @@
+{% extends 'form.html' %}
+
+{% block content %}
+<h2 class="text-center">Make Payment</h2>
+<p>Item: {{obj}}</p>
+<p>Payable amount: {{amount}}</p>
+<div class="d-flex flex-wrap justify-content-sm-between">
+    
+    <div><a href="{% url 'home' %}" class="btn btn-primary">Cancel</a></div>
+    <div> 
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-danger" value="Make Payment">
+        </form>        
+    </div>   
+</div>
+{% endblock content %}

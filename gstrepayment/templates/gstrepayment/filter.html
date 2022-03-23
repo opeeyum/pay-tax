@@ -1,0 +1,7 @@
+<h3>Filters</h3>
+<ul>
+    <li><a href="{% url 'home' %}"> All</a></li>
+    <li><a href="{% url 'filter_entry' %}?q=is_due">Due</a></li>
+    <li><a href="{% url 'filter_entry' %}?q=is_paid">Paid</a></li>
+</ul>
+{% comment %} <a href="#" class="btn btn-primary">Update Status</a> {% endcomment %}

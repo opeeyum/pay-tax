@@ -1,0 +1,81 @@
+<h3>Tax on Sale's</h3>
+<table class="table table-secondary table-hover ">
+    <thead>
+        <tr>
+            <th>Specification</th>
+            <th>Seller GSTIN</th>          
+            <th>Buyer GSTIN</th>
+            <th>Amount</th>
+            <th>GST</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>IGST</th>
+            <th>Status</th>
+        </tr>
+    </thead> 
+    <tbody>            
+        {% for entry in entries %}                      
+            <tr>
+                <td>{{entry.sale_item | capfirst}}</td>
+                <td>{{entry.seller.gst_num}}</td>
+                <td>{{entry.buyer | upper}}</td>
+                <td>{{entry.amount}}</td>
+                <td>{{entry.gst_percent}}%</td>
+                <td>{{entry.cgst}}</td>
+                <td>{{entry.sgst}}</td>
+                <td>{{entry.igst}}</td>
+                {% if entry.is_paid %} 
+                <td>
+                    <button type="button" class="btn btn-secondary btn-sm" disabled>Paid</button>
+                </td>
+                {% else %}
+                <td class="d-flex">
+                    <a href="{% url 'edit_entry' entry.id %}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{% url 'delete_entry' entry.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    <a href="{% url 'pay_sales_tax' entry.id %}" class="btn btn-success btn-sm">Pay</a>
+                </td> 
+                          
+                {% endif %}
+            </tr> 
+            {% endfor %}           
+    </tbody>
+</table>
+<h3>Other Taxes</h3>
+<table class="table table-primary table-hover">
+    <thead>
+        <tr>
+            <th>Tax On</th>
+            <th>Seller</th>
+            <th>Accountant</th>
+            <th>Amount</th>
+            <th>Due date</th>
+            <th>Status</th>
+        </tr>
+    </thead> 
+    <tbody>            
+        {% for entry in other_entries %}                      
+            <tr>
+                <td>{{entry.tax_name | title}}</td>
+                <td>{{entry.tax_payer.username | capfirst}}</td>
+                <td>{{entry.accountant.username | capfirst}}</td>
+                <td>{{entry.amount}}</td>                
+                {% if not entry.is_paid %}
+                <td>{{entry.due_date}}</td>
+                <td class="d-flex">
+                    <a href="{% url 'edit_other_tax' entry.id %}" class="btn btn-primary btn-sm">Edit</a>
+                    <a href="{% url 'delete_other_tax' entry.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    <a href="{% url 'pay_other_tax' entry.id %}" class="btn btn-success btn-sm">Pay</a>
+                </td> 
+                {% elif q == "is_paid" or not q%} 
+                <td>-</td>
+                <td>
+                    <button type="button" class="btn btn-secondary btn-sm" disabled>Paid</button>
+                </td>          
+                {% endif %}
+            </tr> 
+            {% endfor %}           
+    </tbody>
+</table>
+
+        
+   

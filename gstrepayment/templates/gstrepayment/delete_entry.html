@@ -1,0 +1,14 @@
+{% extends 'form.html' %}
+
+{% block content %}
+<p class="text-center">Are You Sure? | Deleting {{obj}}</p>
+<div class="d-flex flex-wrap justify-content-sm-between">
+    <div><a href="{% url 'home' %}" class="btn btn-primary">Cancel</a></div>
+    <div> 
+        <form action="" method="POST">
+            {% csrf_token %}
+            <input type="submit" class="btn btn-danger" value="Delete">
+        </form>        
+    </div>   
+</div>
+{% endblock content %}
