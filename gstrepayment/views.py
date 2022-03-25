@@ -10,7 +10,7 @@ from .forms import SaleTaxForm, SaleTaxFormPayer, OtherTaxForm, OtherTaxFormPaye
 
 # Create your views here.
 def home_page(request):
-    context = {"q": None}
+    context = {"q": None, "entries": None, "other_entries": None,}
     if request.user.is_authenticated:
         if request.user.is_superuser or request.user.user_type == 'TA':
             entry_list = Entry.objects.all()
@@ -93,6 +93,10 @@ def delete_entry(request, pk):
 @login_required
 def pay_sales_tax(request, pk):
     obj = Entry.objects.get(pk=pk)
+
+    # If tax is alrady paid
+    if obj.is_paid:
+        return redirect('home')
     
     # If anyone other than tax payer tries to pay tax on sales
     if obj.seller.id != request.user.id:
@@ -179,6 +183,10 @@ def delete_other_tax(request, pk):
 @login_required
 def pay_other_tax(request, pk):
     obj = OtherTaxes.objects.get(pk=pk)
+
+    # If tax is already paid
+    if obj.is_paid:
+        return redirect('home')
     
     # If anyone other than tax payer tries to pay tax
     if obj.tax_payer.id != request.user.id:
