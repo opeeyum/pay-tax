@@ -17,6 +17,8 @@ About this app:
   
   In this app User can register for two roles, tax-payer and tax-accountant. 
   
+  ![Image](/gitImages/pay-tax-roles.png)
+  
   Tax-payer can add its sales entry and this app will tell you the applicable tax (i.e GST). Entries will have default due date of 10 days after the date of creation.
   
   Tax-accountant will be able to see all the enries of registered user and can add entries for other taxes that a tax-payer have to pay.
@@ -25,7 +27,7 @@ About this app:
   
   Filters are also available, for paid and due's.
   
-  ![Image](/images/pay-tax-filter.png)
+  ![Image](/gitImages/pay-tax-filters.png)
   
   
  
